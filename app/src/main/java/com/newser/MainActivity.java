@@ -1,5 +1,6 @@
 package com.newser;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,12 +19,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
+
+    private Toolbar mainToolbar;
+    private FirebaseAuth mAuth;
+    private String current_user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +107,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.profile) {
-            // Handle the camera action
+            startActivity(new Intent(this,LoginActivity.class));
         } else if (id == R.id.about) {
 
         } else if (id == R.id.settings) {
@@ -109,11 +116,28 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.faq) {
 
+        }else if (id == R.id.logout) {
+            logOut();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void logOut() {
+
+        mAuth.signOut();
+        sendToLogin();
+    }
+
+    private void sendToLogin() {
+
+        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(loginIntent);
+        finish();
+
     }
 
 
