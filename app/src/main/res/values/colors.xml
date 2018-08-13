@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="whiteTransparentHalf">#80ffffff</color>
+
+    <color name="likeBtnGray">#747474</color>
+    <color name="likeBtnAccent">#F44336</color>
+
+    <color name="orange">#FE5722</color>
+    <color name="green">#109D58</color>
+    <color name="green_teal">#009688</color>
+    <color name="purple">#673AB7</color>
+    <color name="voilet">#9C28B1</color>
+    <color name="red">#FF1643</color>
+    <color name="cyan">#039BE6</color>
+    <color name="lime">#CDDC39</color>
+
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#039BE6</color>
+    <color name="colorAccent">#FF4081</color>
+</resources>
