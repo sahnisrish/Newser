@@ -14,4 +14,6 @@ public class Constants {
     public static final String CATEGORIES = "Categories";
     public static final String NEWS = "News";
     public static final String USERS = "Users";
+
+    public static final String IMAGES = "images";
 }

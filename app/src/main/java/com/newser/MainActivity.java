@@ -2,14 +2,11 @@ package com.newser;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,6 +19,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.newser.Tabs.BollywoodTab;
+import com.newser.Tabs.MoneyTab;
+import com.newser.Tabs.SportsTab;
+import com.newser.Tabs.TechTab;
+import com.newser.Tabs.WorldTab;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -154,21 +156,21 @@ public class MainActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    Tab1 tab1 = new Tab1();
-                    return tab1;
+                    WorldTab worldTab = new WorldTab();
+                    return worldTab;
                 case 1:
-                    Tab2 tab2 = new Tab2();
+                    SportsTab tab2 = new SportsTab();
                     return tab2;
                 case 2:
-                    Tab3 tab3 = new Tab3();
-                    return tab3;
+                    TechTab techTab = new TechTab();
+                    return techTab;
                 case 3:
-                    Tab4 tab4 = new Tab4();
-                    return tab4;
+                    BollywoodTab bollywoodTab = new BollywoodTab();
+                    return bollywoodTab;
 
                 case 4:
-                    Tab5 tab5 = new Tab5();
-                    return tab5;
+                    MoneyTab moneyTab = new MoneyTab();
+                    return moneyTab;
                 default:
                     return null;
             }
