@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "630012798729",
+    "firebase_url": "https://newser-f3655.firebaseio.com",
+    "project_id": "newser-f3655",
+    "storage_bucket": "newser-f3655.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630012798729:android:e7e677209c8c5c28",
+        "android_client_info": {
+          "package_name": "com.newser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630012798729-qo3tmna534dn2e3t2o2m5u8m7vh4f8e5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.newser",
+            "certificate_hash": "954d89aba084257942273aa0caaa884cf0f91c87"
+          }
+        },
+        {
+          "client_id": "630012798729-chaojl9sa0nqd1ts6i0gu2fdub6rmrr0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.newser",
+            "certificate_hash": "ba03933fc4d950543142baa150bbab55ac48efa4"
+          }
+        },
+        {
+          "client_id": "630012798729-rr3u2cabqqgdtrdudte26a57hd8sr1nh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_fuRGFNPlJwMXhv9yuW4YvZJIrr5gnKM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630012798729-rr3u2cabqqgdtrdudte26a57hd8sr1nh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
