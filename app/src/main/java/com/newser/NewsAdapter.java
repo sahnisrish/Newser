@@ -26,20 +26,24 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static java.lang.System.currentTimeMillis;
-
 /**
  * Created by sahni on 15/8/18.
  */
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
-    Context context;
-    ArrayList<News> news;
+    private Context context;
+    private ArrayList<News> news;
+    private ItemClickCallback callback;
 
-    public NewsAdapter(Context context, ArrayList<News> news){
+    public interface ItemClickCallback {
+        void openFragment(String newsId);
+    }
+
+    public NewsAdapter(Context context, ArrayList<News> news, ItemClickCallback callback){
         this.context = context;
         this.news = news;
+        this.callback = callback;
     }
 
     @NonNull
@@ -53,7 +57,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        News newsItem = news.get(position);
+        final News newsItem = news.get(position);
 
         holder.toggleProgress();
 
@@ -77,6 +81,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                 holder.toggleProgress();
             }
         });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.openFragment(newsItem.getId());
+            }
+        });
     }
 
     @Override
@@ -85,6 +95,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        View itemView;
         ImageView image;
         TextView content;
         TextView title;
@@ -94,6 +105,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         public ViewHolder(View itemView) {
             super(itemView);
+            this.itemView = itemView;
             image = itemView.findViewById(R.id.image);
             content = itemView.findViewById(R.id.content);
             title = itemView.findViewById(R.id.title);

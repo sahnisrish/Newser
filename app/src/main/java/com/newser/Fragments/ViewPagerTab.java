@@ -1,16 +1,11 @@
-package com.newser.Tabs;
+package com.newser.Fragments;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,21 +21,33 @@ import com.newser.R;
 
 import java.util.ArrayList;
 
-public class WorldTab extends Fragment {
+public class ViewPagerTab extends Fragment {
 
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
     private ArrayList<News> news;
     private FirebaseFirestore firestore;
 
+    private String type;
+    private NewsAdapter.ItemClickCallback callback;
+
+    @SuppressLint("ValidFragment")
+    public ViewPagerTab(String type, NewsAdapter.ItemClickCallback callback) {
+        this.type = type;
+        this.callback = callback;
+    }
+    public ViewPagerTab(){
+
+    }
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.tab_world, container, false);
+        View rootView = inflater.inflate(R.layout.view_pager_tab, container, false);
 
         recyclerView = rootView.findViewById(R.id.recycler_view);
         news = new ArrayList<>();
-        adapter = new NewsAdapter(getContext(),news);
+        adapter = new NewsAdapter(getContext(),news,callback);
         firestore = FirebaseFirestore.getInstance();
 
         recyclerView.setAdapter(adapter);
@@ -79,7 +86,7 @@ public class WorldTab extends Fragment {
                         });
                 return null;
             }
-        }.execute(Constants.WORLD);
+        }.doInBackground(type);
     }
 }
 

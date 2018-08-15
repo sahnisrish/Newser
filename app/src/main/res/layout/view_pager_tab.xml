@@ -10,7 +10,7 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:paddingTop="8dp"
-    tools:context=".Tabs.WorldTab">
+    tools:context=".Fragments.ViewPagerTab">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

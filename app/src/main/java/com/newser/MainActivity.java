@@ -15,22 +15,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.newser.Tabs.BollywoodTab;
-import com.newser.Tabs.MoneyTab;
-import com.newser.Tabs.SportsTab;
-import com.newser.Tabs.TechTab;
-import com.newser.Tabs.WorldTab;
+import com.newser.Data.Constants;
+import com.newser.Fragments.NewsFragment;
+import com.newser.Fragments.ViewPagerTab;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, NewsAdapter.ItemClickCallback {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
+    private TabLayout tabLayout;
+    private FrameLayout fragmentHolder;
+    private NewsFragment newsFragment;
 
     private Toolbar mainToolbar;
     private FirebaseAuth mAuth;
@@ -44,13 +47,15 @@ public class MainActivity extends AppCompatActivity
         mainToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mainToolbar);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),this);
 
         mViewPager = findViewById(R.id.container);
         mViewPager.setOffscreenPageLimit(5);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
+        fragmentHolder = findViewById(R.id.fragment_holder);
+
+        tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
         mAuth = FirebaseAuth.getInstance();
@@ -74,6 +79,12 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if(fragmentHolder.getVisibility()== View.VISIBLE){
+            getSupportFragmentManager().beginTransaction().remove(newsFragment).commitAllowingStateLoss();
+            newsFragment = null;
+            fragmentHolder.setVisibility(View.GONE);
+            mViewPager.setVisibility(View.VISIBLE);
+            tabLayout.setVisibility(View.VISIBLE);
         } else {
             super.onBackPressed();
         }
@@ -145,38 +156,48 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void openFragment(String newsId) {
+        fragmentHolder.setVisibility(View.VISIBLE);
+        mViewPager.setVisibility(View.GONE);
+        tabLayout.setVisibility(View.GONE);
 
-
+        newsFragment = new NewsFragment(newsId);
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_holder,newsFragment).commitAllowingStateLoss();
+    }
 
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private NewsAdapter.ItemClickCallback callback;
+        public SectionsPagerAdapter(FragmentManager fm, NewsAdapter.ItemClickCallback callback) {
             super(fm);
+            this.callback = callback;
         }
 
         @Override
         public Fragment getItem(int position) {
+            ViewPagerTab viewPagerTab;
             switch (position) {
                 case 0:
-                    WorldTab worldTab = new WorldTab();
-                    return worldTab;
+                    viewPagerTab = new ViewPagerTab(Constants.WORLD,callback);
+                    break;
                 case 1:
-                    SportsTab tab2 = new SportsTab();
-                    return tab2;
+                    viewPagerTab = new ViewPagerTab(Constants.SPORTS,callback);
+                    break;
                 case 2:
-                    TechTab techTab = new TechTab();
-                    return techTab;
+                    viewPagerTab = new ViewPagerTab(Constants.TECH,callback);
+                    break;
                 case 3:
-                    BollywoodTab bollywoodTab = new BollywoodTab();
-                    return bollywoodTab;
-
+                    viewPagerTab = new ViewPagerTab(Constants.BOLLYWOOD,callback);
+                    break;
                 case 4:
-                    MoneyTab moneyTab = new MoneyTab();
-                    return moneyTab;
+                    viewPagerTab = new ViewPagerTab(Constants.MONEY,callback);
+                    break;
                 default:
-                    return null;
+                    viewPagerTab = null;
             }
+            return viewPagerTab;
         }
 
         @Override

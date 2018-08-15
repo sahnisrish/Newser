@@ -16,11 +16,25 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/ThemeOverlay.AppCompat" />
+             />
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            app:popupTheme="@style/ThemeOverlay.AppCompat"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            android:visibility="visible"
+            app:layout_scrollFlags="scroll"
+            app:tabIndicatorColor="#ffffff"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/common_google_signin_btn_text_dark_default"
+            app:tabTextAppearance="@style/TextAppearance.Design.Tab"
+            app:tabTextColor="@color/common_google_signin_btn_text_dark_default"/>
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/content_main"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
 
