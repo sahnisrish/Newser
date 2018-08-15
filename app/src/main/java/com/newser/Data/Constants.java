@@ -16,4 +16,5 @@ public class Constants {
     public static final String USERS = "Users";
 
     public static final String IMAGES = "images";
+    public static final long ONE_MEGABYTE = 1024 * 1024;
 }
